@@ -66,9 +66,16 @@ export default {
     try {
       // ADMIN HTML
       if (path === "/admin" || path === "/admin/") {
-        return env.ASSETS.fetch(
-          new Request(new URL("/admin.html", url), request)
-        );
+        // Serve the admin document internally from a non-HTML asset name.
+        // This avoids Cloudflare Assets canonical HTML redirects (/admin.html -> /admin)
+        // which otherwise create ERR_TOO_MANY_REDIRECTS.
+        const assetUrl = new URL("/admin-panel.asset", url);
+        const asset = await env.ASSETS.fetch(new Request(assetUrl, request));
+        if (!asset.ok) return new Response("Panel administrativo no disponible", { status: 500 });
+        const headers = new Headers(asset.headers);
+        headers.set("content-type", "text/html; charset=utf-8");
+        headers.set("cache-control", "no-store");
+        return new Response(asset.body, { status: 200, headers });
       }
 
       // STATIC FILES
