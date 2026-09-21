@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "vial-reynosa",
+  "main": "./src/worker.js",
+  "compatibility_date": "2026-09-21",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/admin"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "vial-reynosa-db",
+      "database_id": "REEMPLAZAR_CON_ID_D1",
+      "migrations_dir": "migrations"
+    }
+  ]
+}
