@@ -18,7 +18,7 @@
       "binding": "DB",
       "database_name": "vial-reynosa-db",
       "database_id": "8c9c3c2a-692d-4026-84f8-369ba7eeacc0",
-      "migrations_dir": "migraciones"
+      "migrations_dir": "migrations"
     }
   ]
 }
